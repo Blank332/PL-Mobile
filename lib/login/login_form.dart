@@ -13,79 +13,112 @@ class LoginForm extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-enum LoginStatus { notSignIn, signIn }
-
 class _LoginState extends State<LoginForm> {
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController nisnController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final nisnKey =
+      GlobalKey<FormState>(); // Menambahkan GlobalKey untuk validasi NISN
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Masuk'),
-        backgroundColor: Colors.green, // Warna latar belakang appbar
+        backgroundColor: Colors.blue,
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Selamat Datang!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+        child: Form(
+          key: nisnKey, // Menghubungkan GlobalKey ke Form
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Selamat Datang!',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(
-                labelText: 'Nama Pengguna',
-                border: OutlineInputBorder(),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: nisnController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'NISN',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'NISN tidak boleh kosong';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return 'NISN harus berupa angka';
+                  }
+                  return null;
+                },
               ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Kata Sandi',
-                border: OutlineInputBorder(),
+              SizedBox(height: 12),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Kata Sandi',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                String username = usernameController.text;
-                String password = passwordController.text;
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (nisnKey.currentState!.validate()) {
+                    int? nisn = int.tryParse(nisnController.text);
+                    String password = passwordController.text;
 
-                // Tempatkan logika autentikasi di sini
-                if (username == 'pengguna' && password == 'password') {
-                  // Berhasil masuk
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavigationPage(),
-                    ),
-                  );
-                } else {
-                  // Tampilkan pesan kesalahan jika login gagal
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Login gagal. Coba lagi.'),
-                    ),
-                  );
-                }
-              },
-              child: Text('Masuk'),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.green), // Warna tombol
+                    // Tempatkan logika autentikasi di sini
+                    if (nisn == 12345 && password == 'password') {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavigationPage(),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Login gagal. Coba lagi.',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  elevation: MaterialStateProperty.all(5),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 94, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  )),
+                ),
+                child: Text(
+                  'Masuk',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

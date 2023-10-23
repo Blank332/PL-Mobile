@@ -18,7 +18,7 @@ class Login extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Positioned(
-                bottom: 0,
+                bottom: 5,
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -39,29 +39,29 @@ class Login extends StatelessWidget {
                         letterSpacing: 0.5,
                       ),
                     ),
-                    SizedBox(height: 10), // Menambahkan jarak vertikal
-                    Text(
-                      'Pembangunan Library adalah aplikasi resmi',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
-                    Text(
-                      'untuk perpustakaan SMKN 1 Cimahi',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10), // Menambahkan jarak vertikal
+          Text(
+            'Pembangunan Library adalah aplikasi resmi',
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black,
+              letterSpacing: 1.5,
+            ),
+          ),
+          Text(
+            'untuk perpustakaan SMKN 1 Cimahi',
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black,
+              letterSpacing: 1.5,
+            ),
+          ),
+          const SizedBox(height: 50),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -73,11 +73,17 @@ class Login extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              padding: EdgeInsets.symmetric(horizontal: 120, vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0), // Mengatur borderRadius
+                side: BorderSide(
+                    color: Colors.blue, width: 4.0), // Mengatur border line
+              ),
             ),
             child: Text('Masuk', style: TextStyle(fontSize: 18)),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -88,11 +94,17 @@ class Login extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              primary: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              primary: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 114, vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0), // Mengatur borderRadius
+                side: BorderSide(
+                    color: Colors.blue, width: 4.0), // Mengatur border line
+              ),
             ),
             child: Text('Register',
-                style: TextStyle(fontSize: 18, color: Colors.black)),
+                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
       ),
