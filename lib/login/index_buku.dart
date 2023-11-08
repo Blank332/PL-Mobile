@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DaftarBukuPage extends StatelessWidget {
+class DaftarBukuPageTamu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

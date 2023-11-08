@@ -12,7 +12,18 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profil Saya'),
+        title: Text('Profile'),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'images/logo.png', // Replace with the actual path to your image
+              width: 40.0,
+              height: 40.0,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -48,9 +59,15 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 // Tambahkan logika untuk mengedit profil
               },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue, // Warna tombol Edit Profil
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                elevation: MaterialStateProperty.all(5),
+                padding: MaterialStateProperty.all(
+                  EdgeInsets.symmetric(horizontal: 94, vertical: 16),
+                ),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                )),
               ),
               child: Text(
                 'Edit Profil',
@@ -72,7 +89,19 @@ class ProfilePage extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          style: ElevatedButton.styleFrom(primary: Colors.red),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
+                            elevation: MaterialStateProperty.all(5),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 16),
+                            ),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            )),
+                          ),
                           child: Text('Batal'),
                         ),
                         ElevatedButton(
@@ -83,7 +112,19 @@ class ProfilePage extends StatelessWidget {
                               ),
                             );
                           },
-                          style: ElevatedButton.styleFrom(primary: Colors.blue),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red),
+                            elevation: MaterialStateProperty.all(5),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 16),
+                            ),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            )),
+                          ),
                           child: Text('Logout'),
                         ),
                       ],
@@ -91,9 +132,15 @@ class ProfilePage extends StatelessWidget {
                   },
                 );
               },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red, // Warna tombol Logout
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+                elevation: MaterialStateProperty.all(5),
+                padding: MaterialStateProperty.all(
+                  EdgeInsets.symmetric(horizontal: 105, vertical: 16),
+                ),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                )),
               ),
               child: Text(
                 'Logout',

@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pl_mobile/login/register_form.dart';
 import 'package:pl_mobile/navigation/navigation.dart';
 
 void main() {
@@ -16,28 +18,37 @@ class LoginForm extends StatefulWidget {
 class _LoginState extends State<LoginForm> {
   final TextEditingController nisnController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final nisnKey =
-      GlobalKey<FormState>(); // Menambahkan GlobalKey untuk validasi NISN
+  final nisnKey = GlobalKey<FormState>();
+  bool _isPasswordVisible = false; // Variabel status
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Masuk'),
-        backgroundColor: Colors.blue,
+        title: Text('Masuk Pembangunan Library'),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'images/logo.png', // Replace with the actual path to your image
+              width: 40.0,
+              height: 40.0,
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(25.0),
         child: Form(
-          key: nisnKey, // Menghubungkan GlobalKey ke Form
+          key: nisnKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Selamat Datang!',
+                'Masuk Menggunakan Akun yang Sudah Dibuat',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
                 ),
@@ -60,13 +71,25 @@ class _LoginState extends State<LoginForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 16),
               TextFormField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: !_isPasswordVisible, // Gunakan variabel status
                 decoration: InputDecoration(
                   labelText: 'Kata Sandi',
                   border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible; // Ubah status
+                      });
+                    },
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -117,6 +140,42 @@ class _LoginState extends State<LoginForm> {
                   ),
                 ),
               ),
+              SizedBox(height: 12),
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Belum punya akun? ',
+                      style: TextStyle(
+                        fontFamily: 'Sans',
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Buat akun baru disini',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterForm(),
+                                ),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
